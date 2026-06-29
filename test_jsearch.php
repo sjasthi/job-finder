@@ -1,6 +1,6 @@
 <?php
 
-$apiKey = "06a2983509msh6e79e5b3b33fa82p1f7165jsnc9a64793b429";
+$apiKey = "";
 
 $url = "https://jsearch.p.rapidapi.com/search?query=software+developer+in+minneapolis&page=1&num_pages=1";
 

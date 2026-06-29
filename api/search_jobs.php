@@ -13,7 +13,7 @@ $query = $_GET["query"] ?? "software developer in Minneapolis";
 $page = $_GET["page"] ?? 1;
 
 // Your RapidAPI key
-$apiKey = "06a2983509msh6e79e5b3b33fa82p1f7165jsnc9a64793b429";
+$apiKey = "";
 
 $url = "https://jsearch.p.rapidapi.com/search?query=" . urlencode($query) . "&page=" . urlencode($page) . "&num_pages=1";
 
