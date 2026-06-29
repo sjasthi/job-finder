@@ -23,10 +23,18 @@ session_start();
 
       <a class="nav-logo" href="#">
         <div class="logo-mark">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 2 Q9.5 1 10.5 2.5 Q12 4 11 6 Q10 7.5 8 8 Q6 7.5 5 6 Q4 4 5.5 2.5 Q6.5 1 8 2Z" fill="#534AB7"/>
-            <path d="M5 9 Q4 10.5 4.5 12 Q5 13.5 6.5 14 L9.5 14 Q11 13.5 11.5 12 Q12 10.5 11 9 Q9.5 8.5 8 8.5 Q6.5 8.5 5 9Z" fill="#7F77DD"/>
-            <ellipse cx="8" cy="8.3" rx="2" ry="0.7" fill="#EEEDFE"/>
+          <svg width="22" height="22" viewBox="40 40 200 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="140" cy="220" rx="88" ry="13" fill="#EEEDFE"/>
+            <path d="M88 183 Q69 162 71 143 Q73 124 93 119 Q113 114 123 124 L157 124 Q167 114 187 119 Q207 124 209 143 Q211 162 192 183 Z" fill="#7F77DD"/>
+            <path d="M123 124 Q140 109 157 124 L162 178 Q152 188 140 188 Q128 188 118 178 Z" fill="#534AB7"/>
+            <ellipse cx="140" cy="122" rx="18" ry="7" fill="#AFA9EC"/>
+            <path d="M140 115 Q148 96 152 81 Q156 66 148 56 Q142 47 135 52 Q129 57 134 65 Q138 73 136 80 Q134 87 128 90" stroke="#EF9F27" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            <circle cx="127" cy="91" r="6" fill="#FAC775"/>
+            <circle cx="127" cy="91" r="3" fill="#BA7517"/>
+            <path d="M192 183 Q211 178 220 172 Q234 165 229 156 Q224 148 215 153 Q206 158 201 153" stroke="#7F77DD" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <circle cx="201" cy="151" r="5" fill="#534AB7"/>
+            <path d="M68 183 Q51 180 46 174 Q41 167 49 161 Q57 155 65 161" stroke="#7F77DD" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <circle cx="65" cy="181" r="4" fill="#534AB7"/>
           </svg>
         </div>
         RoleGenie
