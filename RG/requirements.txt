@@ -1,0 +1,16 @@
+Share your github IDs
+
+Technology Stack:   Front End (HTML, CSS, JS, JQuery, Bootstrap)
+                    Server (PHP)
+                    Backend (MySQL)
+
+Requirements:  1. Based on (profile, resume pdf or resume md, linked in profile), find jobs
+               2. The system lists top 10 or 20 or 50 jobs (configurable number)
+               3. For each job, the users asks our system to prepare the cover letter and application (and to customize the resume)
+               4. The user may decide to apply for the job through the agent.
+
+
+
+Notes: See the weekly plan. 
+
+(FP4) team is behind their plans on FP4. They need to do some catch-up

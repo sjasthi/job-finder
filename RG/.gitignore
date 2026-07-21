@@ -1,0 +1,31 @@
+# Environment & secrets — never commit these
+.env
+.env.local
+.env.production
+
+# Uploaded resumes — keep directory, ignore contents
+uploads/resumes/*
+!uploads/resumes/.htaccess
+!uploads/resumes/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# PHP dependency managers (if added later)
+vendor/
+composer.lock
+
+# Logs
+*.log
+logs/
+
+# Temp / cache
+*.tmp
+*.cache

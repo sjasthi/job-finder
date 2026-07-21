@@ -1,0 +1,4 @@
+# Block direct web access to dotfiles (.env, .git, etc.)
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
