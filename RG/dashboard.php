@@ -71,10 +71,6 @@ $applied_count = $total_applied->fetchColumn();
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
         Matched
       </a>
-      <a href="#" class="dash-tab" data-tab="applied">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22 11 13 2 9l20-7z"/></svg>
-        Applied
-      </a>
     </div>
 
     <div class="dash-nav-right">
@@ -95,14 +91,6 @@ $applied_count = $total_applied->fetchColumn();
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
           Matched Jobs
         </a>
-        <a href="jobs.php" class="sidebar-link">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          Resume & Jobs
-        </a>
-        <a href="#" class="sidebar-link">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          Profile
-        </a>
       </nav>
     </aside>
 
@@ -119,12 +107,6 @@ $applied_count = $total_applied->fetchColumn();
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           <input type="text" placeholder="All locations" />
         </div>
-        <select class="dash-select">
-          <option>All matches</option>
-          <option>90%+ match</option>
-          <option>80%+ match</option>
-          <option>70%+ match</option>
-        </select>
         <a href="jobs.php" class="btn-find-jobs">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           Find Jobs
@@ -174,10 +156,6 @@ $applied_count = $total_applied->fetchColumn();
                   <?php endif; ?>
                 </div>
               </div>
-              <div class="match-badge match-amber">
-                <span class="match-pct">—</span>
-                <span class="match-label">MATCH</span>
-              </div>
             </div>
             <div class="job-card-actions">
               <button class="btn-ai-apply" data-id="<?= $job['id'] ?>">
@@ -213,10 +191,6 @@ $applied_count = $total_applied->fetchColumn();
         <div class="tip">
           <p class="tip-title">Review before send</p>
           <p class="tip-body">Approve the cover letter draft!</p>
-        </div>
-        <div class="tip">
-          <p class="tip-title">Chase high match scores</p>
-          <p class="tip-body">Jobs above 90% match are where the genie works hardest.</p>
         </div>
       </div>
 
