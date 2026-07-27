@@ -75,6 +75,42 @@ $applied_count = $total_applied->fetchColumn();
   font-family: 'Inter', sans-serif;
 }
 .btn-desc-toggle:hover { text-decoration: underline; }
+
+.sidebar-welcome {
+  text-align: center;
+  padding: 16px 10px 18px;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 14px;
+}
+
+.sidebar-welcome-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #534AB7;
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+}
+
+.sidebar-welcome-text {
+  font-size: 11px;
+  color: #aaa;
+  margin-bottom: 2px;
+}
+
+.sidebar-welcome-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0;
+}
+
 </style>
 </head>
 <body class="dashboard-page">
@@ -120,6 +156,12 @@ $applied_count = $total_applied->fetchColumn();
 
     <!-- Left sidebar -->
     <aside class="dash-sidebar">
+
+      <div class="sidebar-welcome">
+        <div class="sidebar-welcome-avatar"><?= strtoupper(substr($user_name, 0, 1)) ?></div>
+        <p class="sidebar-welcome-text">Welcome back,</p>
+        <p class="sidebar-welcome-name"><?= htmlspecialchars($user_name) ?></p>
+      </div>
       <p class="sidebar-label">Navigation</p>
       <nav class="sidebar-nav">
         <a href="dashboard.php" class="sidebar-link active">
