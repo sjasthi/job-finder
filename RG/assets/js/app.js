@@ -6,6 +6,13 @@ $(function () {
     $('html, body').animate({ scrollTop: $('#how-it-works').offset().top - 80 }, 400);
   });
 
+  $('.navbar-nav .nav-link').filter(function () {
+    return $(this).text().trim() === 'About us';
+  }).on('click', function (e) {
+    e.preventDefault();
+    $('html, body').animate({ scrollTop: $('#about-us').offset().top - 80 }, 400);
+  });
+
   /* Navbar link — scroll to How It Works */
   $('.navbar-nav .nav-link').filter(function () {
     return $(this).text().trim() === 'How it works';
