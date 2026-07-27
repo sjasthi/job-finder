@@ -41,6 +41,29 @@ $applied_count = $total_applied->fetchColumn();
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="assets/css/dashboard.css" />
+
+  <style>
+  .rg-job-card {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    padding: 18px 20px 14px;
+    margin-bottom: 14px;
+    transition: box-shadow 0.2s;
+  }
+  .rg-job-card:hover { box-shadow: 0 4px 16px rgba(83,74,183,0.08); }
+  .rg-job-title { font-size: 15px; font-weight: 500; color: #1a1a1a; margin-bottom: 4px; }
+  .rg-job-meta { display: flex; flex-wrap: wrap; gap: 10px; font-size: 12px; color: #777; margin-bottom: 8px; }
+  .rg-job-desc { font-size: 13px; color: #666; line-height: 1.55; margin-bottom: 12px; }
+  .rg-source-badge { background: #EEEDFE; color: #534AB7; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+  .rg-job-actions { display: flex; gap: 8px; flex-wrap: wrap; border-top: 1px solid #f0f0f0; padding-top: 12px; }
+  .btn-apply { height: 34px; padding: 0 16px; background: #534AB7; color: #fff; border: none; border-radius: 7px; font-size: 13px; font-weight: 500; font-family: 'Inter', sans-serif; text-decoration: none; display: inline-flex; align-items: center; transition: background 0.15s; }
+  .btn-apply:hover { background: #3C3489; color: #fff; }
+  .btn-generate-resume { height: 34px; padding: 0 14px; background: #fff; color: #27ae60; border: 1px solid #27ae60; border-radius: 7px; font-size: 13px; font-weight: 500; font-family: 'Inter', sans-serif; cursor: pointer; transition: background 0.15s; }
+  .btn-generate-resume:hover { background: #27ae60; color: #fff; }
+  .btn-generate-cover { height: 34px; padding: 0 14px; background: #fff; color: #534AB7; border: 1px solid #534AB7; border-radius: 7px; font-size: 13px; font-weight: 500; font-family: 'Inter', sans-serif; cursor: pointer; transition: background 0.15s; }
+  .btn-generate-cover:hover { background: #534AB7; color: #fff; }
+</style>
 </head>
 <body class="dashboard-page">
 
@@ -129,49 +152,55 @@ $applied_count = $total_applied->fetchColumn();
           <a href="jobs.php" class="btn-find-jobs">Find Jobs</a>
         </div>
       <?php else: ?>
-        <?php foreach ($job_listings as $job): ?>
-          <div class="job-card">
-            <div class="job-card-top">
-              <div class="job-info">
-                <h3 class="job-title"><?= htmlspecialchars($job['title']) ?></h3>
-                <p class="job-dept"><?= htmlspecialchars($job['company']) ?></p>
-                <div class="job-meta">
+        <?php foreach ($job_listings as $job):
+          $jobJson = htmlspecialchars(json_encode([
+            'title'           => $job['title'],
+            'company'         => $job['company'],
+            'location'        => $job['location'],
+            'description'     => $job['description'],
+            'employment_type' => $job['employment_type'],
+            'apply_url'       => $job['url'],
+            'source'          => $job['source_platform'],
+            'is_remote'       => $job['is_remote'],
+          ]), ENT_QUOTES);
+          $remote = $job['is_remote'] ? 'Remote' : 'On-site / Hybrid';
+        ?>
+          <div class="rg-job-card">
+            <div class="d-flex justify-content-between align-items-start gap-3 mb-2">
+              <div>
+                <p class="rg-job-title"><?= htmlspecialchars($job['title']) ?></p>
+                <div class="rg-job-meta">
+                  <span><?= htmlspecialchars($job['company']) ?></span>
                   <?php if ($job['location']): ?>
-                    <span>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                      <?= htmlspecialchars($job['location']) ?>
-                    </span>
+                    <span><?= htmlspecialchars($job['location']) ?></span>
                   <?php endif; ?>
-                  <span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-                    <?= $job['is_remote'] ? 'Remote' : 'On-site' ?>
-                  </span>
                   <?php if ($job['employment_type']): ?>
                     <span><?= htmlspecialchars($job['employment_type']) ?></span>
                   <?php endif; ?>
-                </div>
-                <div class="job-tags">
-                  <?php if ($job['source_platform']): ?>
-                    <span class="tag tag-blue"><?= htmlspecialchars($job['source_platform']) ?></span>
-                  <?php endif; ?>
+                  <span><?= $remote ?></span>
                 </div>
               </div>
-            </div>
-            <div class="job-card-actions">
-              <button class="btn-ai-apply" data-id="<?= $job['id'] ?>">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.88A2.5 2.5 0 0 1 9.5 2"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.88A2.5 2.5 0 0 0 14.5 2"/></svg>
-                Have AI agent apply
-              </button>
-              <?php if ($job['url']): ?>
-                <a href="<?= htmlspecialchars($job['url']) ?>" target="_blank" class="btn-calibrate">View Job</a>
+              <?php if ($job['source_platform']): ?>
+                <span class="rg-source-badge flex-shrink-0"><?= htmlspecialchars($job['source_platform']) ?></span>
               <?php endif; ?>
-              <button class="btn-save" aria-label="Save job">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <?php if ($job['description']): ?>
+              <p class="rg-job-desc"><?= htmlspecialchars(substr($job['description'], 0, 300)) ?>…</p>
+            <?php endif; ?>
+            <div class="rg-job-actions">
+              <?php if ($job['url']): ?>
+                <a href="<?= htmlspecialchars($job['url']) ?>" target="_blank" class="btn-apply">Apply</a>
+              <?php endif; ?>
+              <button class="btn-generate-resume generate-btn" data-job="<?= $jobJson ?>">
+                Generate Tailored Resume
+              </button>
+              <button class="btn-generate-cover generate-cover-btn" data-job="<?= $jobJson ?>">
+                Generate Cover letter
               </button>
             </div>
           </div>
-        <?php endforeach; ?>
-      <?php endif; ?>
+        <?php endforeach; ?>  
+      <?php endif; ?>   
 
     </main>
 
@@ -219,39 +248,190 @@ $applied_count = $total_applied->fetchColumn();
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
   <script>
-  $(function () {
-    // Tab switching
-    $('.dash-tab').on('click', function (e) {
-      e.preventDefault();
-      $('.dash-tab').removeClass('active');
-      $(this).addClass('active');
-    });
+$(function () {
+  // Tab switching
+  $('.dash-tab').on('click', function (e) {
+    e.preventDefault();
+    $('.dash-tab').removeClass('active');
+    $(this).addClass('active');
+  });
 
-    // Sidebar link switching
-    $('.sidebar-link').on('click', function (e) {
-      e.preventDefault();
-      $('.sidebar-link').removeClass('active');
-      $(this).addClass('active');
-    });
+  // Sidebar link switching
+  $('.sidebar-link').on('click', function (e) {
+    e.preventDefault();
+    $('.sidebar-link').removeClass('active');
+    $(this).addClass('active');
+  });
 
-    // Save toggle
-    $('.btn-save').on('click', function () {
-      $(this).toggleClass('saved');
-    });
+  // Save toggle
+  $('.btn-save').on('click', function () {
+    $(this).toggleClass('saved');
+  });
 
-    // AI apply placeholder
-    $('.btn-ai-apply').on('click', function () {
-      var title = $(this).closest('.job-card').find('.job-title').text();
-      alert('AI agent queued to apply for:\n' + title + '\n\n(Wire up to applications table.)');
-    });
+  // Generate Resume
+  const resumeModal = new bootstrap.Modal(document.getElementById('resumeModal'));
 
-    // Calibrate placeholder
-    $('.btn-calibrate').on('click', function () {
-      var title = $(this).closest('.job-card').find('.job-title').text();
-      alert('Resume calibration for:\n' + title + '\n\n(Wire up to Claude API.)');
+  $(document).on('click', '.generate-btn', function () {
+    const jobData = $(this).data('job');
+    const job = typeof jobData === 'string' ? JSON.parse(jobData) : jobData;
+    openGenerateModal(job);
+  });
+
+  function openGenerateModal(job) {
+    $('#resumeLoading').removeClass('d-none');
+    $('#resumeContent').addClass('d-none');
+    $('#resumeError').addClass('d-none');
+    $('#resumeModalLabel').text('Generating resume for: ' + job.title);
+    resumeModal.show();
+
+    $.ajax({
+      url: 'api/generate_resume.php',
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        title:           job.title,
+        company:         job.company,
+        location:        job.location,
+        description:     job.description,
+        employment_type: job.employment_type,
+      }),
+      dataType: 'json',
+      success: function (res) {
+        $('#resumeLoading').addClass('d-none');
+        if (res.success) {
+          $('#resumeJobMeta').text(res.job_title + ' @ ' + res.company);
+          $('#resumeOutput').text(res.generated_resume);
+          $('#resumeContent').removeClass('d-none');
+        } else {
+          $('#resumeError').text(res.error).removeClass('d-none');
+        }
+      },
+      error: function () {
+        $('#resumeLoading').addClass('d-none');
+        $('#resumeError').text('Request failed. Please try again.').removeClass('d-none');
+      }
+    });
+  }
+
+  $('#copyResumeBtn').on('click', function () {
+    navigator.clipboard.writeText($('#resumeOutput').text()).then(function () {
+      $('#copyResumeBtn').text('Copied!');
+      setTimeout(function () { $('#copyResumeBtn').text('Copy to clipboard'); }, 2000);
     });
   });
-  </script>
+
+  // Generate Cover Letter
+  const coverModal = new bootstrap.Modal(document.getElementById('coverModal'));
+
+  $(document).on('click', '.generate-cover-btn', function () {
+    const jobData = $(this).data('job');
+    const job = typeof jobData === 'string' ? JSON.parse(jobData) : jobData;
+    openCoverModal(job);
+  });
+
+  function openCoverModal(job) {
+    $('#coverLoading').removeClass('d-none');
+    $('#coverContent').addClass('d-none');
+    $('#coverError').addClass('d-none');
+    $('#coverModalLabel').text('Generating cover letter for: ' + job.title);
+    coverModal.show();
+
+    $.ajax({
+      url: 'api/generate_cover_letter.php',
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        title:           job.title,
+        company:         job.company,
+        location:        job.location,
+        description:     job.description,
+        employment_type: job.employment_type,
+      }),
+      dataType: 'json',
+      success: function (res) {
+        $('#coverLoading').addClass('d-none');
+        if (res.success) {
+          $('#coverJobMeta').text(res.job_title + ' @ ' + res.company);
+          $('#coverOutput').text(res.generated_cover_letter);
+          $('#coverContent').removeClass('d-none');
+        } else {
+          $('#coverError').text(res.error).removeClass('d-none');
+        }
+      },
+      error: function () {
+        $('#coverLoading').addClass('d-none');
+        $('#coverError').text('Request failed. Please try again.').removeClass('d-none');
+      }
+    });
+  }
+
+  $('#copyCoverBtn').on('click', function () {
+    navigator.clipboard.writeText($('#coverOutput').text()).then(function () {
+      $('#copyCoverBtn').text('Copied!');
+      setTimeout(function () { $('#copyCoverBtn').text('Copy to clipboard'); }, 2000);
+    });
+  });
+
+});
+</script>
+
+<!-- Resume Modal -->
+<div class="modal fade" id="resumeModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="resumeModalLabel" style="font-family:'Playfair Display',serif; font-weight:400;">AI-Generated Resume</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div id="resumeLoading" class="text-center py-5">
+          <div class="spinner-border" style="color:#534AB7;"></div>
+          <p class="mt-3 text-muted">Claude is tailoring your resume…</p>
+        </div>
+        <div id="resumeContent" class="d-none">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div id="resumeJobMeta" class="text-muted" style="font-size:13px;"></div>
+            <button class="btn btn-sm btn-outline-secondary" id="copyResumeBtn">Copy to clipboard</button>
+          </div>
+          <div id="resumeOutput" style="white-space:pre-wrap; font-family:'Courier New',monospace; font-size:13px; background:#f8f7fc; border:1px solid #e8e8e8; border-radius:8px; padding:16px; max-height:60vh; overflow-y:auto;"></div>
+        </div>
+        <div id="resumeError" class="d-none alert alert-danger"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cover Letter Modal -->
+<div class="modal fade" id="coverModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="coverModalLabel" style="font-family:'Playfair Display',serif; font-weight:400;">AI-Generated Cover Letter</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div id="coverLoading" class="text-center py-5">
+          <div class="spinner-border" style="color:#534AB7;"></div>
+          <p class="mt-3 text-muted">Claude is crafting your cover letter…</p>
+        </div>
+        <div id="coverContent" class="d-none">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div id="coverJobMeta" class="text-muted" style="font-size:13px;"></div>
+            <button class="btn btn-sm btn-outline-secondary" id="copyCoverBtn">Copy to clipboard</button>
+          </div>
+          <div id="coverOutput" style="white-space:pre-wrap; font-family:'Inter',sans-serif; font-size:13px; background:#f8f7fc; border:1px solid #e8e8e8; border-radius:8px; padding:16px; max-height:60vh; overflow-y:auto;"></div>
+        </div>
+        <div id="coverError" class="d-none alert alert-danger"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
