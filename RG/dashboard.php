@@ -63,6 +63,18 @@ $applied_count = $total_applied->fetchColumn();
   .btn-generate-resume:hover { background: #27ae60; color: #fff; }
   .btn-generate-cover { height: 34px; padding: 0 14px; background: #fff; color: #534AB7; border: 1px solid #534AB7; border-radius: 7px; font-size: 13px; font-weight: 500; font-family: 'Inter', sans-serif; cursor: pointer; transition: background 0.15s; }
   .btn-generate-cover:hover { background: #534AB7; color: #fff; }
+
+  .btn-desc-toggle {
+  background: none;
+  border: none;
+  color: #534AB7;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+}
+.btn-desc-toggle:hover { text-decoration: underline; }
 </style>
 </head>
 <body class="dashboard-page">
@@ -185,7 +197,12 @@ $applied_count = $total_applied->fetchColumn();
               <?php endif; ?>
             </div>
             <?php if ($job['description']): ?>
-              <p class="rg-job-desc"><?= htmlspecialchars(substr($job['description'], 0, 300)) ?>…</p>
+              <div class="rg-job-desc-wrap">
+                <p class="rg-job-desc">
+                  <span class="desc-short"><?= nl2br(htmlspecialchars(substr($job['description'], 0, 300))) ?>… <button class="btn-desc-toggle" data-action="more">Show more</button></span>
+                  <span class="desc-full d-none"><?= nl2br(htmlspecialchars($job['description'])) ?> <button class="btn-desc-toggle" data-action="less">Show less</button></span>
+                </p>
+              </div>
             <?php endif; ?>
             <div class="rg-job-actions">
               <?php if ($job['url']): ?>
@@ -275,6 +292,25 @@ $(function () {
     const jobData = $(this).data('job');
     const job = typeof jobData === 'string' ? JSON.parse(jobData) : jobData;
     openGenerateModal(job);
+  });
+
+  $(document).on('click', '.generate-btn', function () {
+    const jobData = $(this).data('job');
+    const job = typeof jobData === 'string' ? JSON.parse(jobData) : jobData;
+    openGenerateModal(job);
+  });
+
+  // Show more / show less description
+  $(document).on('click', '.btn-desc-toggle', function () {
+    const action = $(this).data('action');
+    const wrap = $(this).closest('.rg-job-desc-wrap');
+    if (action === 'more') {
+      wrap.find('.desc-short').addClass('d-none');
+      wrap.find('.desc-full').removeClass('d-none');
+    } else {
+      wrap.find('.desc-full').addClass('d-none');
+      wrap.find('.desc-short').removeClass('d-none');
+    }
   });
 
   function openGenerateModal(job) {
