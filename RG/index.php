@@ -205,11 +205,6 @@ session_start();
   <footer id="footer">
     <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
       <span class="footer-logo">RoleGenie</span>
-      <div class="footer-links">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Contact</a>
-      </div>
     </div>
   </footer>
 
