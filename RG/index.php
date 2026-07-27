@@ -172,7 +172,7 @@ session_start();
             <p class="about-name">O'Shae Berteaux</p>
             <p class="about-role">Full Stack Developer</p>
             <p class="about-desc">Auth, resume upload, job search, API integration</p>
-            <a href="https://www.linkedin.com/in/your-linkedin-here" target="_blank" class="about-linkedin">
+            <a href="https://www.linkedin.com/in/o-shae-berteaux-6a8a14b5" target="_blank" class="about-linkedin">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="#0A66C2" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
               LinkedIn 
             </a>
