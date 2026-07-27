@@ -284,3 +284,92 @@ body {
   font-size: 12px;
   color: #bbb;
 }
+
+#about-us {
+  padding: 64px 0;
+  background: #f8f7fc;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.about-card {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 14px;
+  padding: 28px 24px;
+  text-align: center;
+  height: 100%;
+}
+
+.about-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #534AB7;
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+}
+
+.about-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.about-role {
+  font-size: 12px;
+  font-weight: 500;
+  color: #534AB7;
+  margin-bottom: 8px;
+}
+
+.about-desc {
+  font-size: 12px;
+  color: #999;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.about-linkedin {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #E8F0FE;
+  border: 1px solid #BDD0F8;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #0A66C2;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.about-linkedin:hover {
+  background: #0A66C2;
+  color: #fff;
+  border-color: #0A66C2;
+}
+
+.about-linkedin:hover svg {
+  fill: #fff;
+}
+
+.about-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #EEEDFE;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #534AB7;
+  margin-top: 32px;
+}
