@@ -28,11 +28,6 @@ $(function () {
     window.location.href = 'jobs.php';
   });
 
-  /* Connect LinkedIn button */
-  $('#btn-linkedin').on('click', function () {
-    window.location.href = 'jobs.php';
-  });
-
   /* Nav auth buttons */
   $('#btn-login').on('click', function () {
     window.location.href = 'login.php';
