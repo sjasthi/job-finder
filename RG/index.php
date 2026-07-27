@@ -47,9 +47,7 @@ session_start();
       <div class="collapse navbar-collapse" id="navMenu">
         <ul class="navbar-nav mx-auto">
           <li class="nav-item"><a class="nav-link" href="#">About us</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">AI info</a></li>
           <li class="nav-item"><a class="nav-link" href="#">How it works</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Why use this?</a></li>
         </ul>
         <div class="d-flex gap-2 align-items-center">
           <button class="btn-nav-login" id="btn-login">Log in</button>
@@ -73,7 +71,7 @@ session_start();
             — granted.
           </h1>
           <p class="hero-subtext">
-            Upload your Resume or connect LinkedIn. Our AI agents scan thousands of jobs, score them against your profile, and surface only what truly fits.
+            Upload your Resume. Our AI agents scan thousands of jobs, generates an optimized resume/cover letter, and puts you in the best position to secure your role!
           </p>
           <div class="d-flex flex-wrap gap-3">
             <button class="btn-cta-primary" id="btn-upload">
@@ -156,6 +154,52 @@ session_start();
 
     </div>
   </section>
+
+<!-- -- About Us ------------------------------------------- -->
+  <section id="about-us">
+    <div class="container text-center">
+
+      <p class="section-eyebrow">About us</p>
+      <h2 class="section-title">Built by students, powered by AI</h2>
+      <p class="section-sub" style="max-width:580px; margin-left:auto; margin-right:auto;">
+        RoleGenie is a capstone project for ICS499-50 at Metropolitan State University. Our mission is to make job searching smarter by combining AI with real job data — so every application feels personal and relevant.
+      </p>
+
+      <div class="row justify-content-center g-4 mt-2">
+        <div class="col-sm-6 col-lg-4">
+          <div class="about-card">
+            <div class="about-avatar">O</div>
+            <p class="about-name">O'Shae Berteaux</p>
+            <p class="about-role">Full Stack Developer</p>
+            <p class="about-desc">Auth, resume upload, job search, API integration</p>
+            <a href="https://www.linkedin.com/in/your-linkedin-here" target="_blank" class="about-linkedin">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#0A66C2" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              LinkedIn 
+            </a>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+          <div class="about-card">
+            <div class="about-avatar" style="background:#7F77DD;">S</div>
+            <p class="about-name">Sovann Phay</p>
+            <p class="about-role">Full Stack Developer</p>
+            <p class="about-desc">Claude API, resume tailoring generation &amp; UI/UX Designs</p>
+            <a href="https://www.linkedin.com/in/sovann-phay-472b76322" target="_blank" class="about-linkedin">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#0A66C2" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              LinkedIn 
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#534AB7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        ICS499-50 Capstone — Metropolitan State University
+      </div>
+
+    </div>
+  </section>
+
 
   <!-- -- Footer ---------------------------------------------- -->
   <footer id="footer">
