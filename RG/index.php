@@ -80,10 +80,6 @@ session_start();
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/><polyline points="7 9 12 4 17 9"/><line x1="12" y1="4" x2="12" y2="16"/></svg>
               Upload Resume
             </button>
-            <button class="btn-cta-outline" id="btn-linkedin">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-              Connect LinkedIn
-            </button>
           </div>
         </div>
 
@@ -129,7 +125,7 @@ session_start();
             <div class="step-number">01</div>
             <div class="step-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#534AB7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
             <p class="step-title">Connect your profile</p>
-            <p class="step-desc">Upload a PDF Resume or link your LinkedIn — takes under a minute.</p>
+            <p class="step-desc">Upload a PDF Resume — takes under a minute.</p>
           </div>
         </div>
         <div class="col-sm-6 col-lg-3">
@@ -152,8 +148,8 @@ session_start();
           <div class="step-card text-start">
             <div class="step-number">04</div>
             <div class="step-icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#534AB7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div>
-            <p class="step-title">Get ranked matches</p>
-            <p class="step-desc">Roles are scored and ranked — you only see what truly fits.</p>
+            <p class="step-title">Get Job matches</p>
+            <p class="step-desc">Pick through the various options — decide what truly fits!</p>
           </div>
         </div>
       </div>
