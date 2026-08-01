@@ -184,13 +184,18 @@ $hasResume  = !empty($_SESSION['resume_id']);
     .rg-job-card {
       background: #fff;
       border: 1px solid #e8e8e8;
+      border-left: 3px solid #534AB7;
       border-radius: 12px;
       padding: 20px 22px 16px;
       margin-bottom: 14px;
-      transition: box-shadow 0.2s;
+      transition: all 0.2s ease;
     }
 
-    .rg-job-card:hover { box-shadow: 0 4px 16px rgba(83,74,183,0.08); }
+    .rg-job-card:hover { 
+      box-shadow: 0 8px 24px rgba(83,74,183,0.15);
+      transform: translateY(-2px);
+      border-left-color: #7F77DD;
+     }
 
     .rg-job-title {
       font-size: 15px;
@@ -206,7 +211,9 @@ $hasResume  = !empty($_SESSION['resume_id']);
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
+      .rg-job-meta span:first-child { color: #534AB7; font-weight: 500; }
     }
+    
 
     .rg-source-badge {
       background: #EEEDFE;
