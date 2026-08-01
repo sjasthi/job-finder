@@ -46,14 +46,21 @@ $applied_count = $total_applied->fetchColumn();
   .rg-job-card {
     background: #fff;
     border: 1px solid #e8e8e8;
+    border-left: 3px solid #534AB7;
     border-radius: 12px;
     padding: 18px 20px 14px;
     margin-bottom: 14px;
-    transition: box-shadow 0.2s;
+    transition: all 0.2s ease;
   }
-  .rg-job-card:hover { box-shadow: 0 4px 16px rgba(83,74,183,0.08); }
+  .rg-job-card:hover { 
+    box-shadow: 0 8px 24px rgba(83,74,183,0.15);
+    tranform: translateY(-2px);
+    border-left-color: #7F77DD;
+    transition: all 0.2s ease;
+   }
   .rg-job-title { font-size: 15px; font-weight: 500; color: #1a1a1a; margin-bottom: 4px; }
   .rg-job-meta { display: flex; flex-wrap: wrap; gap: 10px; font-size: 12px; color: #777; margin-bottom: 8px; }
+  .rg-job-meta span:first-child { color: #534AB7; font-weight: 500; }
   .rg-job-desc { font-size: 13px; color: #666; line-height: 1.55; margin-bottom: 12px; }
   .rg-source-badge { background: #EEEDFE; color: #534AB7; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; }
   .rg-job-actions { display: flex; gap: 8px; flex-wrap: wrap; border-top: 1px solid #f0f0f0; padding-top: 12px; }
