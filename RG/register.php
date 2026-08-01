@@ -135,8 +135,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <circle cx="97" cy="103" r="2" fill="#AFA9EC" opacity="0.5"/>
               </svg>
             </div>
-            <h2 class="register-tagline">Your wish is a<br><em>great job</em></h2>
-            <p class="register-hero-sub">RoleGenie's AI agents match you with roles that fit your real skills — not just keywords.</p>
+            <h2 class="register-tagline">Your wish is a<br><em>dream job</em></h2>
+            <p class="register-hero-sub">RoleGenie's AI generates a tailored resume and cover letter for each job — Saves hours of your time!</p>
 
             <ul class="register-perks">
               <li>
@@ -149,8 +149,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <li>
                 <span class="perk-dot"></span>
                 <div>
-                  <strong>Smart job matching</strong>
-                  <span>Roles scored against your profile across thousands of listings</span>
+                  <strong>Tailored resume creation</strong>
+                  <span>AI drafts a fresh resume for each job</span>
                 </div>
               </li>
               <li>
