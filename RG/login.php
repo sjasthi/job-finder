@@ -106,6 +106,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <h1 class="login-title">Welcome back</h1>
       <p class="login-sub">Log in to see your job matches.</p>
 
+      <?php if (!empty($_GET['deleted'])): ?>
+        <div class="login-error" style="background:#eafaf1; border-color:#b7ebc9; color:#1a7a46;">
+          Your account has been deleted.
+        </div>
+      <?php endif; ?>
+
       <?php if ($error): ?>
         <div class="login-error"><?= htmlspecialchars($error) ?></div>
       <?php endif; ?>

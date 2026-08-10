@@ -75,7 +75,7 @@ Job Description:
 {$jobDescription}
 ---
 
-Return only the cover letter text, with natural paragraphs and no extra commentary.
+Return only the cover letter text, with natural spaced out paragraphs and no extra commentary.
 EOT;
 
 // Log prompt length for debugging (don't log full resume)

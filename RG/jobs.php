@@ -307,6 +307,19 @@ $hasResume  = !empty($_SESSION['resume_id']);
       max-height: 60vh;
       overflow-y: auto;
     }
+
+    /* Cover letter modal output */
+    #coverOutput {
+      white-space: pre-wrap;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      background: #f8f7fc;
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      padding: 16px;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
   </style>
 </head>
 <body>
@@ -641,7 +654,7 @@ $hasResume  = !empty($_SESSION['resume_id']);
             </div>
             <p class="rg-job-desc">${escHtml(desc)}</p>
             <div class="rg-job-actions">
-              <a href="${escHtml(job.apply_url)}" target="_blank" class="btn-apply">Apply</a>
+              <a href="${escHtml(job.apply_url)}" target="_blank" class="btn-apply track-apply-btn" data-listing-id="${job.listing_id || ''}">Apply</a>
               <button class="btn-generate-resume generate-btn" data-job="${jobData}">
                 Generate Tailored Resume
               </button>
@@ -653,6 +666,18 @@ $hasResume  = !empty($_SESSION['resume_id']);
       });
       $('#jobResults').html(html);
     }
+
+    // Track "Apply" clicks (fire-and-forget; link still opens in a new tab)
+    $(document).on('click', '.track-apply-btn', function () {
+      const listingId = $(this).data('listing-id');
+      if (!listingId) return;
+      $.ajax({
+        url: 'api/track_apply.php',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ listing_id: listingId })
+      });
+    });
 
     /* Generate Resume Modal */
     const resumeModal = new bootstrap.Modal(document.getElementById('resumeModal'));

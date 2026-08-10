@@ -27,7 +27,7 @@ if (empty($apiKey)) {
 
 $url = "https://jsearch.p.rapidapi.com/search-v2?query="
      . urlencode($query)
-     . "&num_pages=1&country=us&date_posted=all";
+     . "&num_pages=1&country=us&date_posted=all"; // by default, JSearch returns roughly 10 jobs per page. , increase num_pages=2 or more but will increase response size and cost
 
 $curl = curl_init();
 
@@ -95,25 +95,36 @@ foreach ($data["data"]["jobs"] as $job) {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ON DUPLICATE KEY UPDATE fetched_at = NOW()
         ");
-        $desc = function_exists('mb_substr') ? mb_substr($jobRow['description'], 0, 1000, 'UTF-8') : substr($jobRow['description'], 0, 1000);
+        $trunc = function ($value, $maxLen) {
+            return function_exists('mb_substr') ? mb_substr($value, 0, $maxLen, 'UTF-8') : substr($value, 0, $maxLen);
+        };
 
         $stmt->execute([
             $userId,
-            $jobRow['external_id'],
-            $jobRow['source'],
-            $jobRow['title'],
-            $jobRow['company'],
-            $jobRow['location'],
-            $jobRow['apply_url'],
-            $jobRow['employment_type'],
+            $trunc($jobRow['external_id'], 255),
+            $trunc($jobRow['source'], 100),
+            $trunc($jobRow['title'], 255),
+            $trunc($jobRow['company'], 255),
+            $trunc($jobRow['location'], 255),
+            $trunc($jobRow['apply_url'], 1024),
+            $trunc($jobRow['employment_type'], 100),
             $jobRow['is_remote'] ? 1 : 0,
-            $desc,
+            $trunc($jobRow['description'], 1000),
         ]);
 
         $jobRow['listing_id'] = $pdo->lastInsertId();
     }
 
     $jobs[] = $jobRow;
+}
+
+// Record this search so it can show up on the Activity page
+if ($userId) {
+    $stmt = $pdo->prepare("
+        INSERT INTO search_history (user_id, query, results_count)
+        VALUES (?, ?, ?)
+    ");
+    $stmt->execute([$userId, mb_substr($query, 0, 255, 'UTF-8'), count($jobs)]);
 }
 
 echo json_encode([

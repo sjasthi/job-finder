@@ -5,7 +5,7 @@ require_once __DIR__ . '/env.php';
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'role_genie');
 define('DB_USER', 'root');
-define('DB_PASS', 'ODr@969710'); // Pass123
+define('DB_PASS', getenv('DB_PASSWORD'));
 define('DB_CHARSET', 'utf8mb4');
 
 $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=" . DB_CHARSET;

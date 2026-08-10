@@ -1,7 +1,8 @@
 -- ============================================================
--- Job Search Portal: Role Genie 
--- ICS499-50 Capstone Sovann Phay & O'Shae Berteaux 
--- 5 Tables: users, user_profiles, resumes, job_listings, applications
+-- Job Search Portal: Role Genie
+-- ICS499-50 Capstone Sovann Phay & O'Shae Berteaux
+-- 7 Tables: users, user_profiles, resumes, job_listings, applications,
+--           search_history, job_applies
 -- ============================================================
 
 CREATE DATABASE IF NOT EXISTS role_genie
@@ -103,7 +104,38 @@ CREATE TABLE IF NOT EXISTS applications (
     applied_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     primary key(id),
-	-- possibly create index to help speed up dahsobard to fetch applied 
+	-- possibly create index to help speed up dahsobard to fetch applied
     foreign key (user_id) references users(id) on delete cascade,
 	foreign key (listing_id) references job_listings(id) on delete cascade
+);
+
+-- ============================================================
+--  6. SEARCH HISTORY
+--  One row per job search a logged-in user runs.
+--  Powers the "recent searches" list on the Activity page.
+-- ============================================================
+CREATE TABLE IF NOT EXISTS search_history (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    user_id INT UNSIGNED NOT NULL,
+    query VARCHAR(255) NOT NULL,
+    results_count INT UNSIGNED NOT NULL DEFAULT 0,
+    searched_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    primary key (id),
+    foreign key (user_id) references users(id) on delete cascade
+);
+
+-- ============================================================
+--  7. JOB APPLIES
+--  One row per click of the "Apply" button on a job listing.
+--  Distinct from `applications`, which tracks AI-generated
+--  resume/cover-letter documents rather than the apply click itself.
+-- ============================================================
+CREATE TABLE IF NOT EXISTS job_applies (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    user_id INT UNSIGNED NOT NULL,
+    listing_id INT UNSIGNED NOT NULL,
+    applied_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    primary key (id),
+    foreign key (user_id) references users(id) on delete cascade,
+    foreign key (listing_id) references job_listings(id) on delete cascade
 );

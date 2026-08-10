@@ -26,7 +26,7 @@ $total_matches = $pdo->prepare("SELECT COUNT(*) FROM job_listings WHERE user_id 
 $total_matches->execute([$user_id]);
 $match_count = $total_matches->fetchColumn();
 
-$total_applied = $pdo->prepare("SELECT COUNT(*) FROM applications WHERE user_id = ?");
+$total_applied = $pdo->prepare("SELECT COUNT(*) FROM job_applies WHERE user_id = ?");
 $total_applied->execute([$user_id]);
 $applied_count = $total_applied->fetchColumn();
 ?>
@@ -153,7 +153,7 @@ $applied_count = $total_applied->fetchColumn();
 
     <div class="dash-nav-right">
       <a href="logout.php" class="dash-logout">Log out</a>
-      <div class="dash-avatar"><?= strtoupper(substr($user_name, 0, 1)) ?></div>
+      <a href="account.php" class="dash-avatar" title="Account Settings"><?= strtoupper(substr($user_name, 0, 1)) ?></a>
     </div>
 
   </nav>
@@ -174,6 +174,14 @@ $applied_count = $total_applied->fetchColumn();
         <a href="dashboard.php" class="sidebar-link active">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
           Matched Jobs
+        </a>
+        <a href="activity.php" class="sidebar-link">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Your Activity
+        </a>
+        <a href="account.php" class="sidebar-link">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Account Settings
         </a>
       </nav>
     </aside>
@@ -255,7 +263,7 @@ $applied_count = $total_applied->fetchColumn();
             <?php endif; ?>
             <div class="rg-job-actions">
               <?php if ($job['url']): ?>
-                <a href="<?= htmlspecialchars($job['url']) ?>" target="_blank" class="btn-apply">Apply</a>
+                <a href="<?= htmlspecialchars($job['url']) ?>" target="_blank" class="btn-apply track-apply-btn" data-listing-id="<?= $job['id'] ?>">Apply</a>
               <?php endif; ?>
               <button class="btn-generate-resume generate-btn" data-job="<?= $jobJson ?>">
                 Generate Tailored Resume
@@ -290,7 +298,7 @@ $applied_count = $total_applied->fetchColumn();
       </div>
 
       <!-- Your Activity -->
-      <div class="right-widget">
+      <a href="activity.php" class="right-widget right-widget--link">
         <h4 class="widget-title">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#534AB7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
           Your Activity
@@ -302,10 +310,10 @@ $applied_count = $total_applied->fetchColumn();
           </div>
           <div class="activity-stat">
             <span class="activity-num"><?= $applied_count ?></span>
-            <span class="activity-label">AI Applied</span>
+            <span class="activity-label">Applied</span>
           </div>
         </div>
-      </div>
+      </a>
 
     </aside>
 
@@ -322,16 +330,21 @@ $(function () {
     $(this).addClass('active');
   });
 
-  // Sidebar link switching
-  $('.sidebar-link').on('click', function (e) {
-    e.preventDefault();
-    $('.sidebar-link').removeClass('active');
-    $(this).addClass('active');
-  });
-
-  // Save toggle
+// Save toggle
   $('.btn-save').on('click', function () {
     $(this).toggleClass('saved');
+  });
+
+  // Track "Apply" clicks (fire-and-forget; link still opens in a new tab)
+  $(document).on('click', '.track-apply-btn', function () {
+    const listingId = $(this).data('listing-id');
+    if (!listingId) return;
+    $.ajax({
+      url: 'api/track_apply.php',
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({ listing_id: listingId })
+    });
   });
 
   // Generate Resume
