@@ -13,6 +13,14 @@ $query  = $_GET["query"] ?? "software developer in Minneapolis";
 $page   = $_GET["page"]  ?? 1;
 $userId = $_SESSION['user_id'] ?? null;
 
+// JSearch returns ~10 jobs per page; num_pages controls how many pages we pull.
+// Only allow known-good values (1, 2, 3 -> ~10/20/30 results) to bound API usage.
+$allowedNumPages = [1, 2, 3];
+$numPages = (int) ($_GET["num_pages"] ?? 1);
+if (!in_array($numPages, $allowedNumPages, true)) {
+    $numPages = 1;
+}
+
 $apiKey = getenv('JSEARCH_API_KEY');
 
 // Use the PDO configured in config/db.php (ensures options/charset are consistent)
@@ -27,7 +35,7 @@ if (empty($apiKey)) {
 
 $url = "https://jsearch.p.rapidapi.com/search-v2?query="
      . urlencode($query)
-     . "&num_pages=1&country=us&date_posted=all"; // by default, JSearch returns roughly 10 jobs per page. , increase num_pages=2 or more but will increase response size and cost
+     . "&num_pages=" . $numPages . "&country=us&date_posted=all"; // JSearch returns roughly 10 jobs per page; num_pages set via the results-count buttons on jobs.php
 
 $curl = curl_init();
 
