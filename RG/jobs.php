@@ -180,6 +180,50 @@ $hasResume  = !empty($_SESSION['resume_id']);
 
     .btn-search:hover { background: var(--purple-800); }
 
+    /* Results count */
+    .results-count-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .results-count-label {
+      font-size: 12px;
+      color: #888;
+    }
+
+    .results-count-btns {
+      display: flex;
+      gap: 6px;
+    }
+
+    .count-btn {
+      height: 28px;
+      padding: 0 12px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      color: #555;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+    }
+
+    .count-btn:hover {
+      border-color: var(--purple-400);
+      color: var(--purple-600);
+      background: #f8f7fc;
+    }
+
+    .count-btn.active {
+      background: var(--purple-600);
+      border-color: var(--purple-600);
+      color: #fff;
+    }
+
     /* Job card */
     .rg-job-card {
       background: #fff;
@@ -424,6 +468,16 @@ $hasResume  = !empty($_SESSION['resume_id']);
         <button id="searchBtn" class="btn-search">Search</button>
       </div>
       <p id="platformHint" class="platform-hint d-none"></p>
+
+      <!-- Results count -->
+      <div class="results-count-row">
+        <span class="results-count-label">Results per search:</span>
+        <div class="results-count-btns">
+          <button class="count-btn active" data-count="10">10</button>
+          <button class="count-btn" data-count="20">20</button>
+          <button class="count-btn" data-count="30">30</button>
+        </div>
+      </div>
     </div>
 
     <div id="statusMessage"></div>
@@ -595,6 +649,15 @@ $hasResume  = !empty($_SESSION['resume_id']);
       $('#platformHint').addClass('d-none').text('');
     });
 
+    // Results-per-search count (10/20/30 -> num_pages 1/2/3)
+    let resultsCount = 10;
+
+    $('.count-btn[data-count]').on('click', function () {
+      resultsCount = parseInt($(this).data('count'), 10);
+      $('.count-btn[data-count]').removeClass('active');
+      $(this).addClass('active');
+    });
+
     /* Job Search func */
     $('#searchBtn').on('click', searchJobs);
     $('#jobQuery').on('keypress', function (e) { if (e.which === 13) searchJobs(); });
@@ -607,13 +670,15 @@ $hasResume  = !empty($_SESSION['resume_id']);
         query = query + ' ' + activePlatform;
       }
 
+      const numPages = Math.round(resultsCount / 10);
+
       $('#statusMessage').html('<div class="alert alert-info">Searching jobs' + (activePlatform ? ' on ' + activePlatform : '') + '…</div>');
       $('#jobResults').html('');
 
       $.ajax({
         url: 'api/search_jobs.php',
         method: 'GET',
-        data: { query },
+        data: { query, num_pages: numPages },
         dataType: 'json',
         success: function (res) {
           if (!res.success) {
