@@ -5,6 +5,19 @@
 **ICS 499 Capstone Project**
 Team: O'Shae Berteaux & Sovann Phay
 
+
+---
+
+## Quick start for a fresh clone
+
+1. Make sure MySQL/MariaDB is running locally.
+2. Copy [.env.example](../.env.example) to .env if it is not already present. The app will create this automatically on first load.
+3. Start the app from the project root with PHP's built-in server:
+   `php -S localhost:8000`
+4. Open http://localhost:8000 and the first request will create the `role_genie` database and tables automatically.
+
+If you want to run the setup manually, use:
+`php setup.php`
 ---
 
 ## 1. What RoleGenie Is
