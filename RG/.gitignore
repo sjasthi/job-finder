@@ -19,8 +19,6 @@ Thumbs.db
 *.sublime-workspace
 
 # PHP dependency managers (if added later)
-vendor/
-composer.lock
 
 # Logs
 *.log
